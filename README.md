@@ -2,7 +2,7 @@
 
 Interactive visualization platform for analyzing predicted concept relationships in service research networks through 2027.
 
-🔗 **Live Demo:** https://link-prediction-viewer.vercel.app/
+🔗 **Live Demo:** https://service-research-compass.vercel.app/
 
 📄 **User Guide:** [Download PDF](./docs/Service_Research_Compass_2027_User_Guide.pdf)
 
