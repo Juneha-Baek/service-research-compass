@@ -226,7 +226,8 @@ const CommunityRanking = ({ ranking, fullRanking, selectedCommunities, onItemCli
               </button>
             </div>
             <Tooltip 
-              text="Predicted Strength: ranked by future prediction | Current Strength: ranked by current co-occurrence data."
+              text="Predicted Strength: ranked by future prediction 
+              Current Strength: ranked by current co-occurrence data."
               position="left"
             />
             </div>

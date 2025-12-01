@@ -521,7 +521,10 @@ const App = () => {
         fontWeight: 'bold',
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'visible',  // 추가
+        position: 'relative', // 추가
+        zIndex: 100           // 추가
       }}>
         <span
           onClick={() => setShowIntro(true)}
@@ -610,6 +613,17 @@ const App = () => {
           <div style={{ fontSize: '14px', fontWeight: 'normal', opacity: 0.8 }}>
             Predicted: {rawData.length} | Current: {previousData.length} | Network: {networkFilteredData.length} pairs, {networkData.nodes.length} communities
           </div>
+            <Tooltip 
+              text={`Data statistics for the current view.
+
+          Predicted: Total number of concept pairs in the prediction dataset (pairs that don't currently co-occur).
+
+          Current: Total number of concept pairs from existing published papers.
+
+          Network: Number of concept pairs currently displayed in the network (filtered by Top N or Year Range)
+          Communities: Number of unique community clusters shown in the network visualization`}
+              position="left-top"
+            />
         </div>
       </div>
 
