@@ -124,7 +124,7 @@ const IntroPage = ({ onEnter }) => {
               textAlign: 'left',
               animation: 'fadeInUp 0.6s ease-out'
             }}>
-              Service Research Compass 2027
+              Service Research Compass
             </h1>
             
             {/* Subtitle */}
@@ -133,10 +133,10 @@ const IntroPage = ({ onEnter }) => {
               color: '#ecf0f1', 
               marginBottom: '0',
               lineHeight: '1.5',
-              maxWidth: '800px',
+              maxWidth: '1000px',
               animation: 'fadeInUp 0.6s ease-out 0.1s both'
             }}>
-              Discover emerging service research priorities and interdisciplinary opportunities predicted to shape the field by 2027
+              Discover emerging service research priorities and interdisciplinary opportunities predicted to shape the field
             </p>
           </div>
         </div>

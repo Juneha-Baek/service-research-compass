@@ -44,14 +44,14 @@ const App = () => {
 
   // Resizable panel widths
   const [leftPanelWidth, setLeftPanelWidth] = useState(50); // percentage
-  const [topRightHeight, setTopRightHeight] = useState(66); // percentage of right panel
+  const [topRightHeight, setTopRightHeight] = useState(55); // percentage of right panel
   
   // Matrix가 열리면 하단 패널 확대
   React.useEffect(() => {
     if (isMatrixOpen) {
-      setTopRightHeight(50); // 네트워크를 50%로 줄여서 CommunityRanking 영역 확대
+      setTopRightHeight(40); // 네트워크를 50%로 줄여서 CommunityRanking 영역 확대
     } else {
-      setTopRightHeight(66); // 원래대로 복구
+      setTopRightHeight(55); // 원래대로 복구
     }
   }, [isMatrixOpen]);
 

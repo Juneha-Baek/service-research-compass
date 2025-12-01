@@ -1,7 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const NetworkGraph = ({ data, highlightedNodes, onNodeClick, onLinkClick, hideBottomNodes = 5, colorMap = {} }) => {
+const NetworkGraph = ({ 
+  data, 
+  highlightedNodes, 
+  onNodeClick, 
+  onLinkClick, 
+  hideBottomNodes = 5, 
+  colorMap = {},
+  spreadRatio = 40,  // 가로/세로 퍼짐 비율 (null이면 컨테이너 비율 자동 적용, 1.0이면 정사각형, 2.0이면 가로로 2배 퍼짐)
+  spreadStrength = 0.02  // 퍼짐 강도 (0.05~0.3 권장)
+}) => {
   const svgRef = useRef();
 
   useEffect(() => {
@@ -14,6 +23,9 @@ const NetworkGraph = ({ data, highlightedNodes, onNodeClick, onLinkClick, hideBo
     const padding = 40;
     const width = containerWidth - (padding * 2);
     const height = containerHeight - (padding * 2);
+
+    // 비율 계산: spreadRatio가 null이면 컨테이너 비율 사용
+    const effectiveRatio = spreadRatio !== null ? spreadRatio : (width / height);
 
     d3.select(svgRef.current).selectAll('*').remove();
 
@@ -89,12 +101,16 @@ const NetworkGraph = ({ data, highlightedNodes, onNodeClick, onLinkClick, hideBo
       return (highlightedNodes.includes(sourceId) && highlightedNodes.includes(targetId));
     };
 
-    // Force simulation with adjusted parameters
+    // Force simulation with adjusted parameters - 가로/세로 비율 적용
     const simulation = d3.forceSimulation(filteredNodes)
       .force('link', d3.forceLink(filteredLinks).id(d => d.id).distance(150))
       .force('charge', d3.forceManyBody().strength(-600))
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide().radius(50));
+      .force('collision', d3.forceCollide().radius(50))
+      // X축 방향 힘 (비율이 클수록 가로로 퍼짐)
+      .force('x', d3.forceX(width / 2).strength(spreadStrength / Math.sqrt(effectiveRatio)))
+      // Y축 방향 힘 (비율이 클수록 세로로 모임)
+      .force('y', d3.forceY(height / 2).strength(spreadStrength * Math.sqrt(effectiveRatio)));
 
     // Links - 강도에 따라 차별화 + 클릭 가능
     // Separate self-loops and regular links
@@ -491,7 +507,7 @@ const NetworkGraph = ({ data, highlightedNodes, onNodeClick, onLinkClick, hideBo
       tooltip.remove();
     };
 
-  }, [data, highlightedNodes, onNodeClick, onLinkClick, hideBottomNodes, colorMap]);
+  }, [data, highlightedNodes, onNodeClick, onLinkClick, hideBottomNodes, colorMap, spreadRatio, spreadStrength]);
 
   return (
     <svg
